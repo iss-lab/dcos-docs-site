@@ -59,18 +59,22 @@ dcos security secrets create-sa-secret --strict dcos-monitoring-private-key.pem 
 Grant the `dcos-monitoring-principal` the permissions required to run the DC/OS Monitoring service:
 
 ```bash
-dcos security org users grant dcos-monitoring-principal dcos:adminrouter:service:marathon full
-dcos security org users grant dcos-monitoring-principal dcos:adminrouter:package full
-dcos security org users grant dcos-monitoring-principal dcos:adminrouter:service:dcos-monitoring full
-dcos security org users grant dcos-monitoring-principal dcos:service:marathon:marathon:services:/ full
-dcos security org users grant dcos-monitoring-principal dcos:secrets:default:/dcos-monitoring/\* full
-dcos security org users grant dcos-monitoring-principal dcos:secrets:list:default:/dcos-monitoring read
 dcos security org users grant dcos-monitoring-principal dcos:adminrouter:ops:ca:rw full
 dcos security org users grant dcos-monitoring-principal dcos:adminrouter:ops:ca:ro full
-dcos security org users grant dcos-monitoring-principal dcos:mesos:master:framework:principal:dcos-monitoring-principal full
-dcos security org users grant dcos-monitoring-principal dcos:mesos:master:framework:role full
-dcos security org users grant dcos-monitoring-principal dcos:mesos:master:reservation delete
-dcos security org users grant dcos-monitoring-principal dcos:mesos:master:reservation:role full
+dcos security org users grant dcos-monitoring-principal dcos:mesos:agent:framework:role:slave_public read
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:framework:role:dcos-monitoring-role create
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:framework:role:slave_public read
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:framework:role:slave_public/dcos-monitoring-role read
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:framework:role:slave_public/dcos-monitoring-role create
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:reservation:principal:dcos-monitoring-principal delete
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:reservation:role:dcos-monitoring-role create
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:reservation:role:slave_public/dcos-monitoring-role create
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:task:user:nobody create
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:volume:principal:dcos-monitoring-principal delete
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:volume:role:dcos-monitoring-role create
+dcos security org users grant dcos-monitoring-principal dcos:mesos:master:volume:role:slave_public/dcos-monitoring-role create
+dcos security org users grant dcos-monitoring-principal dcos:secrets:default:/dcos-monitoring/\* full
+dcos security org users grant dcos-monitoring-principal dcos:secrets:list:default:/dcos-monitoring read
 ```
 
 ## Install with custom options
